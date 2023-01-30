@@ -1,0 +1,107 @@
+@startuml
+entity Artist {
+   *id          : VARCHAR
+   --
+   *name        : VARCHAR
+   instalgram   : VARCHAR
+   facebook     : VARCHAR
+   twitter      : VARCHAR
+   wikipedia    : VARCHAR
+   bio          : TEXT
+}
+
+entity Album {
+   *id           : VARCHAR
+   --
+   *title        : VARCHAR
+   *release      : YEAR
+   *image        : VARCHAR
+}
+
+entity Song {
+   *id           : VARCHAR
+   --
+   *album_id     : VARCHAR
+   *title        : VARCHAR
+   *duration     : TIME
+}
+
+entity PlaylistCategory {
+   *id         : VARCHAR
+   --
+   *name       : VARCHAR
+   *image      : VARCHAR
+   *icon       : VARCHAR
+}
+
+entity Playlist {
+   *id         : VARCHAR
+   --
+   *name       : VARCHAR
+   image       : VARCHAR
+   description : TEXT
+   Category_id : VARCHAR
+   *user_id    : VARCHAR
+}
+
+entity PodcastCategory {
+   *id         : VARCHAR
+   --
+   *name       : VARCHAR
+   *image      : VARCHAR
+   *icon       : VARCHAR
+}
+
+entity Podcast {
+   *id         : VARCHAR
+   --
+   *name       : VARCHAR
+   about       : TEXT
+   image       : VARCHAR
+   Category_id : VARCHAR
+   *user_id    : VARCHAR
+}
+
+entity Episode {
+   *id          : VARCHAR
+   --
+   *Podcast_id  : VARCHAR
+   *title       : VARCHAR
+   description  : TEXT
+   publishe_at  : VARCHAR
+   duration     : INT
+
+}
+
+entity User {
+   *id          : VARCHAR
+   --
+   *email       : VARCHAR
+   *name        : VARCHAR
+   birthday     : DATE
+}
+
+entity Concert {
+   *id          : VARCHAR
+   --
+   *event_at    : DATETIME
+   *location    : VARCHAR
+   lon          : DOUBLE
+   lat          : DOUBLE
+}
+
+Artist }|--|{ Album : Has
+Album ||--|{ Song : Contains
+Artist }|--|{ Song : SingSong 
+PlaylistCategory |o--|{ Playlist : Contains
+User ||--o{ Playlist : Create
+Playlist }o--o{ Song : Contains
+PodcastCategory ||--|{ Podcast : Contains
+User ||--o{ Podcast : Create
+Podcast ||--o{ Episode : Contains
+Artist }|--o{ Concert : Perform
+User }o--o{ Artist : Follow
+User }o--o{ Song : Liked Song
+User }o--o{ Playlist : Follow
+
+@enduml
